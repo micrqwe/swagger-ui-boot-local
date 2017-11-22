@@ -10,4 +10,4 @@ swagger-filePath=E:\\
 
 
 ## 样例图片
-<img url="https://raw.githubusercontent.com/micrqwe/swagger-ui-boot-local/master/src/test/java/1.png">
+<img url="https://github.com/micrqwe/swagger-ui-boot-local/blob/master/src/test/java/1.png">
