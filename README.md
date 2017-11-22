@@ -10,4 +10,5 @@ swagger-filePath=E:\\
 
 
 ## 样例图片
-https://github.com/micrqwe/swagger-ui-boot-local/blob/master/src/test/java/1.png
+ ![index](https://github.com/micrqwe/swagger-ui-boot-local/blob/master/src/test/java/1.png)
+
