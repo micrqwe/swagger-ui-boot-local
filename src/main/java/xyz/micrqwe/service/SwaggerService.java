@@ -57,7 +57,11 @@ public class SwaggerService {
         List<SwaggerResource> list = swaggerResources.get();
         // 获取模板地址
         String s = this.getClass().getClassLoader().getResource("static/swaggerTemplate").getPath();
-        this.copyFolder(new File(s), new File(filePath));
+        if (s.indexOf(".jar") > -1) {
+            this.jarCopyFolder(new File(filePath + File.separator + "swaggerTemplate"), filePath + File.separator + "swaggerTemplate");
+        } else {
+            this.copyFolder(new File(s), new File(filePath));
+        }
         List<Map<String, String>> fileName = new ArrayList<Map<String, String>>();
         try {
             Map map = null;
@@ -106,6 +110,46 @@ public class SwaggerService {
         return map;
     }
 
+    public void jarCopyFolder(File toFile, String path) {
+        int flag = 0;
+        String[] args = {"swagger-ui-standalone-preset.js",
+                "swagger-ui-bundle.js",
+                "swagger-ui.js",
+                "swagger-ui.css",
+                "oauth2-redirect.html",
+                "index.html",
+                "favicon-32x32.png",
+                "favicon-16x16.png",
+        };
+        toFile.mkdirs();
+
+        try {
+            for (String arg : args) {
+                BufferedInputStream fis = new BufferedInputStream(ClassLoader.getSystemResourceAsStream("static/swaggerTemplate/" + arg));
+                FileOutputStream fos = new FileOutputStream(toFile + "/" + arg);
+                byte[] buf = new byte[1024];
+                int c = 0;
+                while ((c = fis.read(buf)) != -1) {
+                    fos.write(buf, 0, c);
+                }
+                fis.close();
+                fos.close();
+            }
+        } catch (IOException e) {
+            logger.error("流关闭失败");
+        }
+
+        File file = new File(path + File.separator + "data");
+        file.mkdirs();
+        try {
+            FileOutputStream fos = new FileOutputStream(file + File.separator + "tmp.json");
+            fos.write("1".getBytes());
+            fos.close();
+            flag = 1;
+        } catch (IOException e) {
+            logger.error("流关闭失败");
+        }
+    }
 
     /**
      * 复制整个文件夹内容

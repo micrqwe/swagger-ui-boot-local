@@ -1,11 +1,16 @@
 package xyz.micrqwe.util;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import xyz.micrqwe.controller.CreateController;
+
 import java.io.*;
 
 /**
  * Created by shaowenxing on 2017/11/22.
  */
 public class FileUtil {
+    private static final Logger logger = LoggerFactory.getLogger(CreateController.class);
 
     public static boolean stringtoFile(String str, File file) {
         OutputStream outputStream = null;
@@ -14,14 +19,14 @@ public class FileUtil {
             outputStream.write(str.getBytes());
             outputStream.flush();
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error("文件被占用");
         } finally {
             try {
                 if (outputStream != null) {
                     outputStream.close();
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+                logger.error("流关闭失败");
             }
         }
         return true;
@@ -50,7 +55,7 @@ public class FileUtil {
             outStream.flush();
             outStream.close();
         } catch (IOException i) {
-            i.printStackTrace();
+            logger.error("文件被占用");
         }
         return s;
     }

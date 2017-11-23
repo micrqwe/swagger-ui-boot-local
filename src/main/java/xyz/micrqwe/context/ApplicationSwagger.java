@@ -6,6 +6,7 @@ import io.swagger.models.Swagger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Component;
 import springfox.documentation.service.Documentation;
 import springfox.documentation.spring.web.DocumentationCache;
@@ -26,6 +27,9 @@ import java.util.Map;
  * 初始化运行数据，生成html数据
  */
 @Component
+@ComponentScan(basePackages = {
+        "xyz.micrqwe.**"
+})
 public class ApplicationSwagger implements CommandLineRunner {
     @Autowired
     private SwaggerService swaggerService;
